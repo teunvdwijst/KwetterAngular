@@ -1,7 +1,7 @@
-<h2>{{ account.name }} Details</h2>
-<div><span>id: </span>{{account.id}}</div>
-<div>
-  <label>name:
-    <input [(ngModel)]="account.username" placeholder="name">
-  </label>
-</div>
+<h2>Accounts</h2>
+<ul class="accounts">
+  <li *ngFor="let account of accounts" (click)="onSelect(account)" [class.selected]="account === selectedAccount">
+    <span class="badge">{{account.id}}</span> {{account.username}}
+  </li>
+</ul>
+<app-account-detail [account]="selectedAccount"></app-account-detail>

@@ -1,27 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Account} from '../account';
+import {ACCOUNTS} from '../mock-accounts';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AccountComponent implements OnInit {
 
-  account: Account = {
-    id: 1,
-    username: 'test',
-    email: 'test',
-    password: 'test',
-    location: 'test',
-    bio: 'test',
-    website: 'test',
-    avatarPath: 'test'
-  };
+  accounts = ACCOUNTS;
+  selectedAccount: Account;
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  onSelect(account: Account): void {
+    this.selectedAccount = account;
   }
 }
