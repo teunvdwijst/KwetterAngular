@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Account} from '../account';
+import {Account} from '../domain/account';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {AccountService} from '../account.service';
+import {AccountService} from '../services/account.service';
 
 @Component({
   selector: 'app-account-detail',

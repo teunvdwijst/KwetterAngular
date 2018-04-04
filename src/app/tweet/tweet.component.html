@@ -1,0 +1,11 @@
+<h2>Tweets</h2>
+<div>
+</div>
+<ul class="">
+  <li *ngFor="let tweet of tweets">
+    <a routerLink="/{{tweet.id}}">
+      <p>Message: <br>{{tweet.content}}</p>
+      <p>Tweeted by: <br>{{tweet.tweetedBy}}</p>
+    </a>
+  </li>
+</ul>

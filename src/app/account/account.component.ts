@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Account} from '../account';
-import {AccountService} from '../account.service';
+import {Account} from '../domain/account';
+import {AccountService} from '../services/account.service';
 
 @Component({
   selector: 'app-account',
@@ -37,6 +37,7 @@ export class AccountComponent implements OnInit {
     if (!name || !email || !password) {
       return;
     }
+
     this.accountService.addAccount(new Account(name, email, password))
       .subscribe(account => {
         this.accounts.push(account);

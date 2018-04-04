@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Account} from './account';
+import {Account} from '../domain/account';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {MessageService} from './message.service';
@@ -26,17 +26,35 @@ export class AccountService {
   getAccounts(): Observable<Account[]> {
     const url = `${this.accountUrl}/0`;
     return this.http.get<Account[]>(url).pipe(
-      tap(accounts => this.log('fetched accounts')),
+      tap(_ => this.log('fetched accounts')),
       catchError(this.handleError('getAccounts', [])));
   }
 
-  /** GET account by id. Will 404 if username not found */
-  getAccount(username: string): Observable<Account> {
-    const url = `${this.accountUrl}/username/${username}`;
+  /** GET account by email. Will 404 if username not found */
+  getAccount(email: string): Observable<Account> {
+    const url = `${this.accountUrl}/email/${email}`;
     return this.http.get<Account>(url)
       .pipe(
-        tap(_ => this.log(`fetched Account, username = ${username}`)),
-        catchError(this.handleError<Account>(`getAccount username=${username}`)));
+        tap(_ => this.log(`fetched Account, email = ${email}`)),
+        catchError(this.handleError<Account>(`getAccount email=${email}`)));
+  }
+
+  /** GET account followers by email. Will 404 if username not found */
+  getAccountFollowers(email: string): Observable<Account> {
+    const url = `${this.accountUrl}/followers/${email}`;
+    return this.http.get<Account>(url)
+      .pipe(
+        tap(_ => this.log(`fetched Account followers, email = ${email}`)),
+        catchError(this.handleError<Account>(`getAccount email=${email}`)));
+  }
+
+  /** GET account following by email. Will 404 if username not found */
+  getAccountFollowing(email: string): Observable<Account> {
+    const url = `${this.accountUrl}/following/${email}`;
+    return this.http.get<Account>(url)
+      .pipe(
+        tap(_ => this.log(`fetched Account following, email = ${email}`)),
+        catchError(this.handleError<Account>(`getAccount email=${email}`)));
   }
 
   /** PUT: update the account on the server */

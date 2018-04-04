@@ -4,8 +4,8 @@ import {Subject} from 'rxjs/Subject';
 import {of} from 'rxjs/Observable/of';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {AccountService} from '../account.service';
-import {Account} from '../account';
+import {AccountService} from '../services/account.service';
+import {Account} from '../domain/account';
 
 @Component({
   selector: 'app-account-search',
