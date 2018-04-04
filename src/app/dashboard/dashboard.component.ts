@@ -9,7 +9,7 @@ import {AccountService} from '../account.service';
 })
 export class DashboardComponent implements OnInit {
 
-  accounts: Account[] = [];
+  accounts: Account[];
 
   constructor(private accountService: AccountService) {
   }
@@ -20,6 +20,6 @@ export class DashboardComponent implements OnInit {
 
   getAccounts(): void {
     this.accountService.getAccounts()
-      .subscribe(accounts => this.accounts = accounts.slice(1, 5));
+      .subscribe(accounts => this.accounts = accounts.slice(0, 8));
   }
 }

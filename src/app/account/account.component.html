@@ -1,7 +1,7 @@
 <h2>Accounts</h2>
 <ul class="accounts">
   <li *ngFor="let account of accounts">
-    <a routerLink="/detail/{{account.id}}">
+    <a routerLink="/detail/{{account.username}}">
       <span class="badge">{{account.id}}</span> {{account.username}}
     </a>
   </li>

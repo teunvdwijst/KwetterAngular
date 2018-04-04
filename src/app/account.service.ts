@@ -1,19 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Account} from './account';
-import {ACCOUNTS} from './mock-accounts';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable()
 export class AccountService {
 
-  private accountUrl = 'http://localhost:8080/KwetterS62/api/accounts/0';
+  private accountUrl = 'http://localhost:8080/KwetterS62/api/accounts';
 
-  constructor(private http: HttpClient,
-              private messageService: MessageService) {
+  constructor(private http: HttpClient, private messageService: MessageService) {
   }
 
   private log(message: string) {
@@ -22,18 +20,19 @@ export class AccountService {
 
   /** GET all accounts */
   getAccounts(): Observable<Account[]> {
-    this.log('fetched accounts');
-    // return of(ACCOUNTS);
-    return this.http.get<Account[]>(this.accountUrl)
-      .pipe(tap(accounts => this.log('fetched accounts')),
-        catchError(this.handleError('getAccounts', [])));
+    const url = `${this.accountUrl}/0`;
+    return this.http.get<Account[]>(url).pipe(
+      tap(accounts => this.log('fetched accounts')),
+      catchError(this.handleError('getAccounts', [])));
   }
 
-  /** GET account by id. Will 404 if id not found */
-  getAccount(id: number): Observable<Account> {
-    const url = `${this.accountUrl}/${id}`
-    this.log(`fetched Account id=${id}`);
-    return of(ACCOUNTS.find(account => account.id === id));
+  /** GET account by id. Will 404 if username not found */
+  getAccount(username: string): Observable<Account> {
+    const url = `${this.accountUrl}/username/${username}`;
+    return this.http.get<Account>(url)
+      .pipe(
+        tap(_ => this.log(`fetched Account, username = ${username}`)),
+        catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
   /**

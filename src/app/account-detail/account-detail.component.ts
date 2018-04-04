@@ -11,7 +11,7 @@ import {AccountService} from '../account.service';
 })
 export class AccountDetailComponent implements OnInit {
 
-  @Input() account: Account;
+  account: Account;
 
   constructor(private route: ActivatedRoute,
               private accountService: AccountService,
@@ -23,11 +23,19 @@ export class AccountDetailComponent implements OnInit {
   }
 
   getAccount(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.accountService.getAccount(id).subscribe(account => this.account = account);
+    const username = this.route.snapshot.paramMap.get('username');
+    this.accountService.getAccount(username).subscribe(account => {
+      this.account = account;
+    });
+    console.log(JSON.stringify(this.account));
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  save(): void {
+    // this.accountService.updateAccount(this.account)
+    //  .subscribe(() => this.goBack());
   }
 }
