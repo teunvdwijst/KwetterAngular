@@ -7,4 +7,10 @@ export class Account {
   bio: string;
   website: string;
   avatarPath: string;
+
+  constructor(username: string, email: string, password: string) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
 }

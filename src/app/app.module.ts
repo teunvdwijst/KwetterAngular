@@ -10,6 +10,7 @@ import { MessageService } from './message.service';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {HttpClientModule} from '@angular/common/http';
+import { AccountSearchComponent } from './account-search/account-search.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {HttpClientModule} from '@angular/common/http';
     AccountComponent,
     AccountDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    AccountSearchComponent
   ],
   imports: [
     BrowserModule,

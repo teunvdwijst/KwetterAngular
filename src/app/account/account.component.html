@@ -1,4 +1,12 @@
 <h2>Accounts</h2>
+<div>
+  <label>Account email: <input #accountEmail/></label>
+  <label>Account name: <input #accountName/></label>
+  <label>Account password: <input #accountPass type="password" /></label>
+  <button (click)="add(accountEmail.value, accountName.value, accountPass.value);
+  accountEmail.value=''; accountName.value=''; accountPass.value=''">Add
+  </button>
+</div>
 <ul class="accounts">
   <li *ngFor="let account of accounts">
     <a routerLink="/detail/{{account.username}}">

@@ -23,4 +23,23 @@ export class AccountComponent implements OnInit {
     this.accountService.getAccounts()
       .subscribe(accounts => this.accounts = accounts);
   }
+
+  delete(account: Account): void {
+    this.accounts = this.accounts.filter(a => a !== account);
+    this.accountService.deleteAccount(account).subscribe();
+  }
+
+  add(name: string, email: string, password: string): void {
+    email = email.trim();
+    name = name.trim();
+    password = password.trim();
+
+    if (!name || !email || !password) {
+      return;
+    }
+    this.accountService.addAccount(new Account(name, email, password))
+      .subscribe(account => {
+        this.accounts.push(account);
+      });
+  }
 }

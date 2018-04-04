@@ -39,10 +39,40 @@ export class AccountService {
         catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
+  /** PUT: update the account on the server */
   updateAccount(account: Account): Observable<any> {
     return this.http.put(this.accountUrl, account, httpOptions).pipe(
       tap(_ => this.log(`updated Account username=${account.username}`)),
       catchError(this.handleError<any>('updateAccount')));
+  }
+
+  /** DELETE: delete the account from the server */
+  deleteAccount(account: Account | string): Observable<Account> {
+    const name = typeof account === 'string' ? account : account.username;
+    const url = `${this.accountUrl}/${name}`;
+
+    return this.http.delete<Account>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted Account, username=${name}`)),
+      catchError(this.handleError<Account>('deleteAccount')));
+  }
+
+  /** POST: add a new account to the server */
+  addAccount(newAccount: Account): Observable<Account> {
+    return this.http.post(this.accountUrl, newAccount, httpOptions).pipe(
+      tap((account: Account) => this.log(`added Account username=${account.username}`)),
+      catchError(this.handleError<Account>('addAccount')));
+  }
+
+  /** GET accounts whose name contain the search term */
+  searchAccounts(term: string): Observable<Account[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+
+    const searchUrl = `${this.accountUrl}/username/${term}`;
+    return this.http.get<Account[]>(searchUrl).pipe(
+      tap(_ => this.log(`found accounts matching "${term}"`)),
+      catchError(this.handleError<Account[]>('searchAccounts', [])));
   }
 
   /**
