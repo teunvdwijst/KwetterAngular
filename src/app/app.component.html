@@ -1,8 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <app-account></app-account>
+  <h1> Welcome to {{ title }}! </h1>
+  <nav>
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/accounts">Accounts</a>
+  </nav>
+  <router-outlet></router-outlet>
+  <app-messages></app-messages>
 </div>
-<h2>Als dat jasje van je beschadigd is ... en je wilt er wat aan doen ...</h2>

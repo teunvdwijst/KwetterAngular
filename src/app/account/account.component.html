@@ -1,7 +1,8 @@
 <h2>Accounts</h2>
 <ul class="accounts">
-  <li *ngFor="let account of accounts" (click)="onSelect(account)" [class.selected]="account === selectedAccount">
-    <span class="badge">{{account.id}}</span> {{account.username}}
+  <li *ngFor="let account of accounts">
+    <a routerLink="/detail/{{account.id}}">
+      <span class="badge">{{account.id}}</span> {{account.username}}
+    </a>
   </li>
 </ul>
-<app-account-detail [account]="selectedAccount"></app-account-detail>

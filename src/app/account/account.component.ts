@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Account} from '../account';
-import {ACCOUNTS} from '../mock-accounts';
+import {AccountService} from '../account.service';
 
 @Component({
   selector: 'app-account',
@@ -10,16 +10,17 @@ import {ACCOUNTS} from '../mock-accounts';
 })
 export class AccountComponent implements OnInit {
 
-  accounts = ACCOUNTS;
-  selectedAccount: Account;
+  accounts: Account[];
 
-  constructor() {
+  constructor(private accountService: AccountService) {
   }
 
   ngOnInit() {
+    this.getAccounts();
   }
 
-  onSelect(account: Account): void {
-    this.selectedAccount = account;
+  getAccounts(): void {
+    this.accountService.getAccounts()
+      .subscribe(accounts => this.accounts = accounts);
   }
 }
