@@ -6,6 +6,10 @@ import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+
 @Injectable()
 export class AccountService {
 
@@ -33,6 +37,12 @@ export class AccountService {
       .pipe(
         tap(_ => this.log(`fetched Account, username = ${username}`)),
         catchError(this.handleError<Account>(`getAccount username=${username}`)));
+  }
+
+  updateAccount(account: Account): Observable<any> {
+    return this.http.put(this.accountUrl, account, httpOptions).pipe(
+      tap(_ => this.log(`updated Account username=${account.username}`)),
+      catchError(this.handleError<any>('updateAccount')));
   }
 
   /**

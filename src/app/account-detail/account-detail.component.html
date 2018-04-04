@@ -1,10 +1,21 @@
 <div *ngIf="account">
 
   <h2>{{ account.username | uppercase }} Details</h2>
-  <div><span>id: </span>{{account.id}}</div>
+  <div><span>Email: </span>{{account.email}}</div>
+  <div><span>Name: </span>{{account.username}}</div>
   <div>
-    <label>name:
-      <input [(ngModel)]="account.username" placeholder="username"/>
+  <label>Bio:
+    <input [(ngModel)]="account.bio" placeholder="bio"/>
+  </label>
+</div>
+  <div>
+    <label>Location:
+      <input [(ngModel)]="account.location" placeholder="location"/>
+    </label>
+  </div>
+  <div>
+    <label>Website:
+      <input [(ngModel)]="account.website" placeholder="website"/>
     </label>
   </div>
   <br/>

@@ -27,7 +27,6 @@ export class AccountDetailComponent implements OnInit {
     this.accountService.getAccount(username).subscribe(account => {
       this.account = account;
     });
-    console.log(JSON.stringify(this.account));
   }
 
   goBack(): void {
@@ -35,7 +34,7 @@ export class AccountDetailComponent implements OnInit {
   }
 
   save(): void {
-    // this.accountService.updateAccount(this.account)
-    //  .subscribe(() => this.goBack());
+    this.accountService.updateAccount(this.account)
+     .subscribe(() => this.goBack());
   }
 }
