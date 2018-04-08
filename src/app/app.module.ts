@@ -13,6 +13,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { AccountSearchComponent } from './account-search/account-search.component';
 import { TweetComponent } from './tweet/tweet.component';
 import {TweetService} from './services/tweet.service';
+import { LoginComponent } from './login/login.component';
+import {AuthenticationService} from './services/authentication.service';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import {TweetService} from './services/tweet.service';
     MessagesComponent,
     DashboardComponent,
     AccountSearchComponent,
-    TweetComponent
+    TweetComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import {TweetService} from './services/tweet.service';
   providers: [
     AccountService,
     MessageService,
-    TweetService
+    TweetService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
