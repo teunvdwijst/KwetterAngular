@@ -1,25 +1,47 @@
 <div *ngIf="account">
 
-  <h2>{{ account.username | uppercase }} Details</h2>
-  <div><span>Email: </span>{{account.email}}</div>
-  <div><span>Name: </span>{{account.username}}</div>
-  <div>
-  <label>Bio:
-    <input [(ngModel)]="account.bio" placeholder="bio"/>
-  </label>
-</div>
-  <div>
-    <label>Location:
-      <input [(ngModel)]="account.location" placeholder="location"/>
-    </label>
-  </div>
-  <div>
-    <label>Website:
-      <input [(ngModel)]="account.website" placeholder="website"/>
-    </label>
+  <h2>Account details</h2>
+  <div class="container">
+    <div class="row">
+      <label class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{account.email}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-2 control-label">Username</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{account.username}}</p>
+      </div>
+    </div>
+    <div>
+      <div class="row">
+        <label class="col-sm-2 control-label">Bio</label>
+        <div class="col-sm-10">
+          <input [(ngModel)]="account.bio" type="text" class="form-control" id="inputBio" placeholder="Bio">
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="row">
+        <label class="col-sm-2 control-label">Location</label>
+        <div class="col-sm-10">
+          <input [(ngModel)]="account.location" type="text" class="form-control" id="inputLocation"
+                 placeholder="Location">
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="row">
+        <label class="col-sm-2 control-label">Website</label>
+        <div class="col-sm-10">
+          <input [(ngModel)]="account.website" type="text" class="form-control" id="inputWebsite" placeholder="Website">
+        </div>
+      </div>
+    </div>
   </div>
   <br/>
-  <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
+  <button type="button" class="btn btn-primary" (click)="save()">save</button>
+  <button type="button" class="btn btn-default" (click)="goBack()">go back</button>
 </div>
 

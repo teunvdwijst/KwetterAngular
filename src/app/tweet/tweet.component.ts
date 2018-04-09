@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Tweet} from '../domain/tweet';
 import {TweetService} from '../services/tweet.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-tweet',
@@ -12,15 +13,28 @@ export class TweetComponent implements OnInit {
 
   tweets: Tweet[];
 
-  constructor(private tweetService: TweetService) {
+  constructor(private tweetService: TweetService, private auth: AuthenticationService) {
+  }
+
+  isLoggedIn(): boolean {
+    return this.auth.isAuthenticated();
   }
 
   ngOnInit() {
-    this.getTweets();
+    if (this.auth.isAuthenticated()) {
+      this.getTimeline();
+    } else {
+      this.getRecentTweets();
+    }
   }
 
-  getTweets(): void {
+  getRecentTweets(): void {
     this.tweetService.getRecentTweets()
+      .subscribe(tweets => this.tweets = tweets);
+  }
+
+  getTimeline(): void {
+    this.tweetService.getTimeline(this.auth.getUsername())
       .subscribe(tweets => this.tweets = tweets);
   }
 
@@ -32,5 +46,4 @@ export class TweetComponent implements OnInit {
       return;
     }
   }
-
 }

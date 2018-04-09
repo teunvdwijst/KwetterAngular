@@ -23,7 +23,7 @@ export class AccountDetailComponent implements OnInit {
   }
 
   getAccount(): void {
-    const username = this.route.snapshot.paramMap.get('username');
+    const username = localStorage.getItem('username');
     this.accountService.getAccount(username).subscribe(account => {
       this.account = account;
     });

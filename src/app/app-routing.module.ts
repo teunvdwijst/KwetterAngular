@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'accounts', component: AccountComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'tweets', component: TweetComponent},
-  {path: 'detail/:username', component: AccountDetailComponent},
+  {path: 'detail', component: AccountDetailComponent},
   {path: 'login', component: LoginComponent}
 ];
 

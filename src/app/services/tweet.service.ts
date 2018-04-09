@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Tweet} from '../domain/tweet';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {Account} from '../domain/account';
@@ -16,11 +15,11 @@ export class TweetService {
 
   private tweetUrl = 'http://localhost:8080/KwetterS62/api/tweets';
 
-  constructor(private http: HttpClient, private messageService: MessageService) {
+  constructor(private http: HttpClient) {
   }
 
   private log(message: string) {
-    this.messageService.add('TweetService: ' + message);
+    console.log('TweetService: ' + message);
   }
 
   /** GET recent tweets */
@@ -29,6 +28,15 @@ export class TweetService {
     return this.http.get<Tweet[]>(url).pipe(
       tap(_ => this.log('fetched recent tweets')),
       catchError(this.handleError('getRecentTweets', [])));
+  }
+
+  /** GET a users timeline tweets */
+  getTimeline(username: string): Observable<Tweet[]> {
+    const url = `${this.tweetUrl}/timeline/0/${username}`;
+    console.log(url);
+    return this.http.get<Tweet[]>(url).pipe(
+      tap(_ => this.log('fetched getTimeline')),
+      catchError(this.handleError('getTimeline', [])));
   }
 
   /**

@@ -17,7 +17,11 @@ export class AuthenticationService {
   }
 
   getToken(): string {
-    return localStorage.getItem('webToken');
+    return localStorage.getItem('webtoken');
+  }
+
+  getUsername(): string {
+    return localStorage.getItem('username');
   }
 
   isAuthenticated(): boolean {
@@ -28,10 +32,5 @@ export class AuthenticationService {
   public login(username: string, password: string): Observable<any> {
     const account = new Account(username, null, password);
     return this.http.post(this.loginUrl, account, {headers: this.httpOptions.headers, observe: 'response'});
-  }
-
-  public logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('webToken');
   }
 }

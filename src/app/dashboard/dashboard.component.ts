@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Account} from '../domain/account';
-import {AccountService} from '../services/account.service';
+import {Tweet} from '../domain/tweet';
+import {TweetService} from '../services/tweet.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,17 +10,34 @@ import {AccountService} from '../services/account.service';
 })
 export class DashboardComponent implements OnInit {
 
-  accounts: Account[];
+  tweets: Tweet[];
 
-  constructor(private accountService: AccountService) {
+  constructor(private tweetService: TweetService, private auth: AuthenticationService) {
+  }
+
+  isLoggedIn(): boolean {
+    return this.auth.isAuthenticated();
+  }
+
+  username(): string {
+    return this.auth.getUsername();
   }
 
   ngOnInit() {
-    this.getAccounts();
+    if (this.isLoggedIn()) {
+      this.getTimeline();
+    } else {
+      this.getRecentTweets();
+    }
   }
 
-  getAccounts(): void {
-    this.accountService.getAccounts()
-      .subscribe(accounts => this.accounts = accounts.slice(0, 8));
+  getRecentTweets(): void {
+    this.tweetService.getRecentTweets()
+      .subscribe(tweets => this.tweets = tweets);
+  }
+
+  getTimeline(): void {
+    this.tweetService.getTimeline(this.username())
+      .subscribe(tweets => this.tweets = tweets);
   }
 }

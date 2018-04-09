@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Account} from '../domain/account';
+import {Account} from 'app/domain/account';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 
@@ -15,11 +14,11 @@ export class AccountService {
 
   private accountUrl = 'http://localhost:8080/KwetterS62/api/accounts';
 
-  constructor(private http: HttpClient, private messageService: MessageService) {
+  constructor(private http: HttpClient) {
   }
 
   private log(message: string) {
-    this.messageService.add('AccountService: ' + message);
+    console.log('AccountService: ' + message);
   }
 
   /** GET all accounts */
@@ -30,31 +29,31 @@ export class AccountService {
       catchError(this.handleError('getAccounts', [])));
   }
 
-  /** GET account by email. Will 404 if username not found */
-  getAccount(email: string): Observable<Account> {
-    const url = `${this.accountUrl}/email/${email}`;
+  /** GET account by username. Will 404 if username not found */
+  getAccount(username: string): Observable<Account> {
+    const url = `${this.accountUrl}/username/${username}`;
     return this.http.get<Account>(url)
       .pipe(
-        tap(_ => this.log(`fetched Account, email = ${email}`)),
-        catchError(this.handleError<Account>(`getAccount email=${email}`)));
+        tap(_ => this.log(`fetched Account, username = ${username}`)),
+        catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
   /** GET account followers by email. Will 404 if username not found */
-  getAccountFollowers(email: string): Observable<Account> {
-    const url = `${this.accountUrl}/followers/${email}`;
+  getAccountFollowers(username: string): Observable<Account> {
+    const url = `${this.accountUrl}/followers/${username}`;
     return this.http.get<Account>(url)
       .pipe(
-        tap(_ => this.log(`fetched Account followers, email = ${email}`)),
-        catchError(this.handleError<Account>(`getAccount email=${email}`)));
+        tap(_ => this.log(`fetched Account followers, username = ${username}`)),
+        catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
   /** GET account following by email. Will 404 if username not found */
-  getAccountFollowing(email: string): Observable<Account> {
-    const url = `${this.accountUrl}/following/${email}`;
+  getAccountFollowing(username: string): Observable<Account> {
+    const url = `${this.accountUrl}/following/${username}`;
     return this.http.get<Account>(url)
       .pipe(
-        tap(_ => this.log(`fetched Account following, email = ${email}`)),
-        catchError(this.handleError<Account>(`getAccount email=${email}`)));
+        tap(_ => this.log(`fetched Account following, username = ${username}`)),
+        catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
   /** PUT: update the account on the server */
@@ -79,18 +78,6 @@ export class AccountService {
     return this.http.post(this.accountUrl, newAccount, httpOptions).pipe(
       tap((account: Account) => this.log(`added Account username=${account.username}`)),
       catchError(this.handleError<Account>('addAccount')));
-  }
-
-  /** GET accounts whose name contain the search term */
-  searchAccounts(term: string): Observable<Account[]> {
-    if (!term.trim()) {
-      return of([]);
-    }
-
-    const searchUrl = `${this.accountUrl}/username/${term}`;
-    return this.http.get<Account[]>(searchUrl).pipe(
-      tap(_ => this.log(`found accounts matching "${term}"`)),
-      catchError(this.handleError<Account[]>('searchAccounts', [])));
   }
 
   /**
