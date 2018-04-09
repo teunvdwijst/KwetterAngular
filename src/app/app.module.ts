@@ -1,20 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { AccountComponent } from './account/account.component';
-import { AccountDetailComponent } from './account-detail/account-detail.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppComponent} from './app.component';
+import {AccountComponent} from './account/account.component';
+import {AccountDetailComponent} from './account-detail/account-detail.component';
 import {AccountService} from './services/account.service';
-import { MessagesComponent } from './messages/messages.component';
-import { MessageService } from './services/message.service';
-import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import {HttpClientModule} from '@angular/common/http';
-import { AccountSearchComponent } from './account-search/account-search.component';
-import { TweetComponent } from './tweet/tweet.component';
+import {MessagesComponent} from './messages/messages.component';
+import {MessageService} from './services/message.service';
+import {AppRoutingModule} from './app-routing.module';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {TweetComponent} from './tweet/tweet.component';
 import {TweetService} from './services/tweet.service';
-import { LoginComponent } from './login/login.component';
+import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './services/authentication.service';
+import {TokenInterceptor} from './token.interceptor';
 
 
 @NgModule({
@@ -24,22 +24,29 @@ import {AuthenticationService} from './services/authentication.service';
     AccountDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    AccountSearchComponent,
     TweetComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AccountService,
     MessageService,
     TweetService,
-    AuthenticationService
+    AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

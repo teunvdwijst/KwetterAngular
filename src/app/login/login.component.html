@@ -1,21 +1,13 @@
 <div class="col-md-6 col-md-offset-3">
-  <h2>Login</h2>
-  <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-      <label>Username</label>
-      <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
-             required/>
-      <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
-    </div>
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-      <label>Password</label>
-      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
-             required/>
-      <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-    </div>
-    <div class="form-group">
-      <button [disabled]="loading" class="btn btn-primary">Login</button>
-      <a [routerLink]="['/register']" class="btn btn-link">Register</a>
-    </div>
+  <div class="alert alert-danger" role="alert" *ngIf="error.length > 0">
+    {{error}}
+  </div>
+  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
+    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+    <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
+           formControlName="username">
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+           formControlName="password">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
 </div>

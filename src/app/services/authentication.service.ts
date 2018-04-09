@@ -10,16 +10,17 @@ export class AuthenticationService {
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  loginUrl = 'http://localhost:8080/KwetterS62/api/login';
+
+  loginUrl = 'http://localhost:8080/KwetterS62/api/accounts/login';
 
   constructor(private http: HttpClient) {
   }
 
   getToken(): string {
-   return localStorage.getItem('webToken');
+    return localStorage.getItem('webToken');
   }
 
-  isLoggedIn(): boolean {
+  isAuthenticated(): boolean {
     const token = this.getToken();
     return tokenNotExpired(null, token);
   }
@@ -27,5 +28,10 @@ export class AuthenticationService {
   public login(username: string, password: string): Observable<any> {
     const account = new Account(username, null, password);
     return this.http.post(this.loginUrl, account, {headers: this.httpOptions.headers, observe: 'response'});
+  }
+
+  public logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('webToken');
   }
 }
