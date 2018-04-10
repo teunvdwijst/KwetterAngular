@@ -21,6 +21,8 @@ export class AuthenticationService {
   }
 
   getUsername(): string {
+    const token = atob(localStorage.getItem('webtoken').split('.')[1]);
+    console.log('TOKEN --> ' + token);
     return localStorage.getItem('username');
   }
 
