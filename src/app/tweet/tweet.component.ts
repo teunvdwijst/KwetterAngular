@@ -28,6 +28,10 @@ export class TweetComponent implements OnInit {
     }
   }
 
+  setNextView(username: string): void {
+    localStorage.setItem('nextView', username);
+  }
+
   getRecentTweets(): void {
     this.tweetService.getRecentTweets()
       .subscribe(tweets => this.tweets = tweets);

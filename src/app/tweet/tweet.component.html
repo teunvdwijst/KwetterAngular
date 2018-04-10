@@ -1,15 +1,14 @@
 <h2 *ngIf="!isLoggedIn()">Recent Tweets</h2>
 <h2 *ngIf="isLoggedIn()">Your Timeline</h2>
 <div class="container">
-  <ul class="list-unstyled">
-    <li *ngFor="let tweet of tweets">
-
-      <div class="tweet">
-        <div class="row">
-          <label class="col-sm-2 control-label">Tweeted by: <br>{{tweet.tweetedBy.username}}</label>
-          <label class="col-sm-10 control-label">Message: <br>{{tweet.content}}</label>
-        </div>
+  <div class="row justify-content-md-center mt-3">
+    <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
+      <div class="card-body">
+        <p class="card-text">{{tweet.content}}</p>
       </div>
-    </li>
-  </ul>
+      <div class="card-header">
+        <a routerLink="/detail" (click)="setNextView(tweet.tweetedBy.username)" class="card-link">{{tweet.tweetedBy.username}}</a>
+      </div>
+    </div>
+  </div>
 </div>

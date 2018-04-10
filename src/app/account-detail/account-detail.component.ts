@@ -19,11 +19,15 @@ export class AccountDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAccount();
+    if (!(localStorage.getItem('nextView') === null)) {
+      this.getAccount(localStorage.getItem('nextView'));
+      localStorage.removeItem('nextView');
+    } else {
+      this.getAccount(localStorage.getItem('username'));
+    }
   }
 
-  getAccount(): void {
-    const username = localStorage.getItem('username');
+  getAccount(username: string): void {
     this.accountService.getAccount(username).subscribe(account => {
       this.account = account;
     });
@@ -35,6 +39,6 @@ export class AccountDetailComponent implements OnInit {
 
   save(): void {
     this.accountService.updateAccount(this.account)
-     .subscribe(() => this.goBack());
+      .subscribe(() => this.goBack());
   }
 }
