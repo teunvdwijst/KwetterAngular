@@ -11,12 +11,8 @@ export class AppComponent {
     return !(localStorage.getItem('webtoken') === null);
   }
 
-  username(): string {
-    return localStorage.getItem('username');
-  }
-
   public logout() {
     localStorage.removeItem('webtoken');
-    localStorage.removeItem('username');
+    localStorage.removeItem('nextView');
   }
 }

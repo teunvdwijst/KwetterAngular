@@ -6,9 +6,6 @@
         <a class="nav-link" href="/dashboard">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/accounts">Accounts</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="/tweets">Tweets</a>
       </li>
       <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
@@ -25,7 +22,7 @@
   </li>
 
   <li *ngIf="isLoggedIn()" class="nav-item">
-    <a routerLink="" class="nav-link" (click)="logout()">Logout</a>
+    <a routerLink="/dashboard" class="nav-link" (click)="logout()">Logout</a>
   </li>
 </ul>
 </nav>

@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
-import {AccountComponent} from './account/account.component';
+import {RegisterComponent} from './register/register.component';
 import {AccountDetailComponent} from './account-detail/account-detail.component';
 import {AccountService} from './services/account.service';
 import {AppRoutingModule} from './app-routing.module';
@@ -18,7 +18,7 @@ import {TokenInterceptor} from './token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent,
+    RegisterComponent,
     AccountDetailComponent,
     DashboardComponent,
     TweetComponent,

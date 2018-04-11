@@ -27,16 +27,25 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
+    if (this.loginForm.get('username').value === null || this.loginForm.get('username').value === '') {
+      this.error = 'Enter a username';
+      return;
+    }
+
+    if (this.loginForm.get('password').value === null || this.loginForm.get('password').value === '') {
+      this.error = 'Enter a password';
+      return;
+    }
+
     this.auth.login(this.loginForm.get('username').value, this.loginForm.get('password').value)
       .subscribe(result => {
         localStorage.setItem('webtoken', result.headers.get('Authorization'));
-        localStorage.setItem('username', this.loginForm.get('username').value);
         this.router.navigate(['/']);
       }, err => {
         if (err.status === 401) {
           this.error = 'Username or Password incorrect';
         } else {
-          this.error = err.toString();
+          this.error = 'An unexpected error occurred, Error code: ' + err.status;
         }
       });
   }

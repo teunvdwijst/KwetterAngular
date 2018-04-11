@@ -29,7 +29,7 @@ export class AccountService {
       catchError(this.handleError('getAccounts', [])));
   }
 
-  /** GET account by username. Will 404 if username not found */
+  /** GET register by username. Will 404 if username not found */
   getAccount(username: string): Observable<Account> {
     const url = `${this.accountUrl}/username/${username}`;
     return this.http.get<Account>(url)
@@ -38,7 +38,7 @@ export class AccountService {
         catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
-  /** GET account followers by email. Will 404 if username not found */
+  /** GET register followers by email. Will 404 if username not found */
   getAccountFollowers(username: string): Observable<Account> {
     const url = `${this.accountUrl}/followers/${username}`;
     return this.http.get<Account>(url)
@@ -47,7 +47,7 @@ export class AccountService {
         catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
-  /** GET account following by email. Will 404 if username not found */
+  /** GET register following by email. Will 404 if username not found */
   getAccountFollowing(username: string): Observable<Account> {
     const url = `${this.accountUrl}/following/${username}`;
     return this.http.get<Account>(url)
@@ -56,14 +56,14 @@ export class AccountService {
         catchError(this.handleError<Account>(`getAccount username=${username}`)));
   }
 
-  /** PUT: update the account on the server */
+  /** PUT: update the register on the server */
   updateAccount(account: Account): Observable<any> {
     return this.http.put(this.accountUrl, account, httpOptions).pipe(
       tap(_ => this.log(`updated Account username=${account.username}`)),
       catchError(this.handleError<any>('updateAccount')));
   }
 
-  /** DELETE: delete the account from the server */
+  /** DELETE: delete the register from the server */
   deleteAccount(account: Account | string): Observable<Account> {
     const name = typeof account === 'string' ? account : account.username;
     const url = `${this.accountUrl}/${name}`;
@@ -73,7 +73,7 @@ export class AccountService {
       catchError(this.handleError<Account>('deleteAccount')));
   }
 
-  /** POST: add a new account to the server */
+  /** POST: add a new register to the server */
   addAccount(newAccount: Account): Observable<Account> {
     return this.http.post(this.accountUrl, newAccount, httpOptions).pipe(
       tap((account: Account) => this.log(`added Account username=${account.username}`)),

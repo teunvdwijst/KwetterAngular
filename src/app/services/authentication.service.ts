@@ -2,10 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Account} from '../domain/account';
-import {tokenNotExpired} from 'angular2-jwt';
+import {JwtHelper, tokenNotExpired} from 'angular2-jwt';
 
 @Injectable()
 export class AuthenticationService {
+
+  jwtHelper: JwtHelper = new JwtHelper();
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -21,9 +23,8 @@ export class AuthenticationService {
   }
 
   getUsername(): string {
-    const token = atob(localStorage.getItem('webtoken').split('.')[1]);
-    console.log('TOKEN --> ' + token);
-    return localStorage.getItem('username');
+    const temp = this.jwtHelper.decodeToken(localStorage.getItem('webtoken'));
+    return temp.sub;
   }
 
   isAuthenticated(): boolean {

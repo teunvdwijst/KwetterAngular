@@ -3,6 +3,7 @@ import {Account} from '../domain/account';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {AccountService} from '../services/account.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-account-detail',
@@ -15,7 +16,8 @@ export class AccountDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private accountService: AccountService,
-              private location: Location) {
+              private location: Location,
+              private auth: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -23,7 +25,7 @@ export class AccountDetailComponent implements OnInit {
       this.getAccount(localStorage.getItem('nextView'));
       localStorage.removeItem('nextView');
     } else {
-      this.getAccount(localStorage.getItem('username'));
+      this.getAccount(this.auth.getUsername());
     }
   }
 
