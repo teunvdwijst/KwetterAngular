@@ -13,6 +13,5 @@ export class AppComponent {
 
   public logout() {
     localStorage.removeItem('webtoken');
-    localStorage.removeItem('nextView');
   }
 }

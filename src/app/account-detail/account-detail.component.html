@@ -22,7 +22,7 @@
           <p *ngIf="!editBio" class="form-control-static">{{account.bio}}</p>
         </div>
         <div class="col-sm-1">
-          <button type="button" (click)="changeBioField()" class="btn btn-primary">Edit</button>
+          <button *ngIf="accountOwner()" type="button" (click)="changeBioField()" class="btn btn-primary">Edit</button>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
           <p *ngIf="!editLocation" class="form-control-static">{{account.location}}</p>
         </div>
         <div class="col-sm-1">
-          <button type="button" (click)="changeLocationField()" class="btn btn-primary">Edit</button>
+          <button *ngIf="accountOwner()" type="button" (click)="changeLocationField()" class="btn btn-primary">Edit</button>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
           <p *ngIf="!editWebsite" class="form-control-static">{{account.website}}</p>
         </div>
         <div class="col-sm-1">
-          <button type="button" (click)="changeWebsiteField()" class="btn btn-primary">Edit</button>
+          <button *ngIf="accountOwner()" type="button" (click)="changeWebsiteField()" class="btn btn-primary">Edit</button>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
             <p class="card-text">{{account.email}}</p>
           </div>
           <div class="card-header">
-            <a routerLink="/detail" (click)="setNextView(account.username)" class="card-link">{{account.username}}</a>
+            <a routerLink="/accounts/{{account.username}}" (click)="getAccount(account.username)" class="card-link">{{account.username}}</a>
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@
             <p class="card-text">{{account.email}}</p>
           </div>
           <div class="card-header">
-            <a routerLink="/detail" (click)="setNextView(account.username)" class="card-link">{{account.username}}</a>
+            <a routerLink="/accounts/{{account.username}}" (click)="getAccount(account.username)" class="card-link">{{account.username}}</a>
           </div>
         </div>
       </div>

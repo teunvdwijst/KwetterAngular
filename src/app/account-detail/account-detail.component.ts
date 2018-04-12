@@ -27,12 +27,19 @@ export class AccountDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!(localStorage.getItem('nextView') === null)) {
-      this.getAccount(localStorage.getItem('nextView'));
-      localStorage.removeItem('nextView');
-    } else {
+    let username;
+    this.route.params.subscribe(params => {
+      username = params['username'];
+    });
+    if (username == null || username === '') {
       this.getAccount(this.auth.getUsername());
+      return;
     }
+    this.getAccount(username);
+  }
+
+  accountOwner(): boolean {
+    return this.account.username === this.auth.getUsername();
   }
 
   changeLocationField(): void {

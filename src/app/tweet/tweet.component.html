@@ -7,7 +7,7 @@
         <p class="card-text">{{tweet.content}}</p>
       </div>
       <div class="card-header">
-        <a routerLink="/detail" (click)="setNextView(tweet.tweetedBy.username)" class="card-link">{{tweet.tweetedBy.username}}</a>
+        <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a>
       </div>
     </div>
   </div>
