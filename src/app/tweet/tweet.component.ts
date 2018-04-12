@@ -21,15 +21,11 @@ export class TweetComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.auth.isAuthenticated()) {
+    if (this.isLoggedIn()) {
       this.getTimeline();
     } else {
       this.getRecentTweets();
     }
-  }
-
-  setNextView(username: string): void {
-    localStorage.setItem('nextView', username);
   }
 
   getRecentTweets(): void {

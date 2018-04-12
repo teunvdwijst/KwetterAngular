@@ -54,8 +54,8 @@
     </div>
   </div>
   <br/>
-  <button type="button" class="btn btn-primary" (click)="save()">save</button>
-  <button type="button" class="btn btn-default" (click)="goBack()">go back</button>
+  <button *ngIf="accountOwner()" type="button" class="btn btn-primary" (click)="save()">save</button>
+  <button *ngIf="accountOwner()" type="button" class="btn btn-default" (click)="goBack()">go back</button>
 </div>
 
 <br/>
