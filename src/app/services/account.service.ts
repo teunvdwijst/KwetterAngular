@@ -39,21 +39,21 @@ export class AccountService {
   }
 
   /** GET register followers by email. Will 404 if username not found */
-  getAccountFollowers(username: string): Observable<Account> {
+  getAccountFollowers(username: string): Observable<Account[]> {
     const url = `${this.accountUrl}/followers/${username}`;
-    return this.http.get<Account>(url)
+    return this.http.get<Account[]>(url)
       .pipe(
         tap(_ => this.log(`fetched Account followers, username = ${username}`)),
-        catchError(this.handleError<Account>(`getAccount username=${username}`)));
+        catchError(this.handleError<Account[]>(`getAccount username=${username}`)));
   }
 
   /** GET register following by email. Will 404 if username not found */
-  getAccountFollowing(username: string): Observable<Account> {
+  getAccountFollowing(username: string): Observable<Account[]> {
     const url = `${this.accountUrl}/following/${username}`;
-    return this.http.get<Account>(url)
+    return this.http.get<Account[]>(url)
       .pipe(
         tap(_ => this.log(`fetched Account following, username = ${username}`)),
-        catchError(this.handleError<Account>(`getAccount username=${username}`)));
+        catchError(this.handleError<Account[]>(`getAccount username=${username}`)));
   }
 
   /** PUT: update the register on the server */

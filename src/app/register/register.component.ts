@@ -26,29 +26,25 @@ export class RegisterComponent implements OnInit {
   }
 
   add(): void {
-
-    if (this.registerForm.get('username').value === null || this.registerForm.get('username').value === '') {
-      this.error = 'Enter a username';
-      return;
-    }
-
-    if (this.registerForm.get('password').value === null || this.registerForm.get('password').value === '') {
-      this.error = 'Enter a password';
-      return;
-    }
-
-    if (this.registerForm.get('email').value === null || this.registerForm.get('email').value === '') {
-      this.error = 'Enter an email';
-      return;
-    }
     const email = this.registerForm.get('email').value;
     const username = this.registerForm.get('username').value;
     const password = this.registerForm.get('password').value;
 
-    if (!name || !email || !password) {
+    if (username === null || username === '') {
+      this.error = 'Enter a username';
       return;
     }
 
-    this.accountService.addAccount(new Account(name, email, password));
+    if (password === null || password === '') {
+      this.error = 'Enter a password';
+      return;
+    }
+
+    if (email === null || email === '') {
+      this.error = 'Enter an email';
+      return;
+    }
+
+    this.accountService.addAccount(new Account(username, email, password));
   }
 }

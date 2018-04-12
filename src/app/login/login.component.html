@@ -8,26 +8,26 @@
       <div class="col-md-3"></div>
     </div>
   </div>
-    <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
-      <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
-                 formControlName="username">
-        </div>
-        <div class="col-md-3"></div>
+  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
+    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
+               formControlName="username">
       </div>
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
-                 formControlName="password">
-        </div>
-        <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+               formControlName="password">
       </div>
-      <button class="btn btn-primary" type="submit">Sign in</button>
-    </form>
+      <div class="col-md-3"></div>
+    </div>
+    <button class="btn btn-primary" type="submit">Sign in</button>
+  </form>
 
   <div class="col-md-3"></div>
 

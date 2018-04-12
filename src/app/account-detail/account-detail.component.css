@@ -5,3 +5,15 @@
 p {
   float: left;
 }
+
+.card {
+  margin: 10px;
+}
+
+.card-text {
+  color: #000000;
+}
+
+.col-md-auto {
+  padding: 0px;
+}

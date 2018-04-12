@@ -13,6 +13,12 @@ import {AuthenticationService} from '../services/authentication.service';
 export class AccountDetailComponent implements OnInit {
 
   account: Account;
+  followers: Account[];
+  following: Account[];
+
+  editBio = false;
+  editLocation = false;
+  editWebsite = false;
 
   constructor(private route: ActivatedRoute,
               private accountService: AccountService,
@@ -29,9 +35,27 @@ export class AccountDetailComponent implements OnInit {
     }
   }
 
+  changeLocationField(): void {
+    this.editLocation = !this.editLocation;
+  }
+
+  changeWebsiteField(): void {
+    this.editWebsite = !this.editWebsite;
+  }
+
+  changeBioField(): void {
+    this.editBio = !this.editBio;
+  }
+
   getAccount(username: string): void {
     this.accountService.getAccount(username).subscribe(account => {
       this.account = account;
+    });
+    this.accountService.getAccountFollowers(username).subscribe(followers => {
+      this.followers = followers;
+    });
+    this.accountService.getAccountFollowing(username).subscribe(following => {
+      this.following = following;
     });
   }
 
