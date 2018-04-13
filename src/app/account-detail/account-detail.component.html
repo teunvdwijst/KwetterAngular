@@ -18,7 +18,7 @@
         <label class="col-sm-2 control-label">Bio</label>
         <div class="col-sm-9">
           <input *ngIf="editBio" [(ngModel)]="account.bio" type="text" class="form-control" id="inputBio"
-                 placeholder="Bio" maxlength="255">
+                 placeholder="Bio" maxlength="64">
           <p *ngIf="!editBio" class="form-control-static">{{account.bio}}</p>
         </div>
         <div class="col-sm-1">
@@ -55,7 +55,6 @@
   </div>
   <br/>
   <button *ngIf="accountOwner()" type="button" class="btn btn-primary" (click)="save()">save</button>
-  <button *ngIf="accountOwner()" type="button" class="btn btn-default" (click)="goBack()">go back</button>
 </div>
 
 <br/>

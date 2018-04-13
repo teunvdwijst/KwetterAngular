@@ -23,8 +23,11 @@ export class AuthenticationService {
   }
 
   getUsername(): string {
-    const temp = this.jwtHelper.decodeToken(localStorage.getItem('webtoken'));
-    return temp.sub;
+    if (localStorage.getItem('webtoken') !== null) {
+      const temp = this.jwtHelper.decodeToken(localStorage.getItem('webtoken'));
+      return temp.sub;
+    }
+    return '';
   }
 
   isAuthenticated(): boolean {

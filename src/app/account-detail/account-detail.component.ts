@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Account} from '../domain/account';
 import {ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
 import {AccountService} from '../services/account.service';
 import {AuthenticationService} from '../services/authentication.service';
 
@@ -22,16 +21,15 @@ export class AccountDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private accountService: AccountService,
-              private location: Location,
               private auth: AuthenticationService) {
   }
 
   ngOnInit(): void {
     let username;
-    this.route.params.subscribe(params => {
-      username = params['username'];
-    });
-    if (username == null || username === '') {
+      this.route.params.subscribe(params => {
+        username = params['username'];
+      });
+      if (username == null || username === '') {
       this.getAccount(this.auth.getUsername());
       return;
     }
@@ -66,12 +64,8 @@ export class AccountDetailComponent implements OnInit {
     });
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
   save(): void {
     this.accountService.updateAccount(this.account)
-      .subscribe(() => this.goBack());
+      .subscribe();
   }
 }

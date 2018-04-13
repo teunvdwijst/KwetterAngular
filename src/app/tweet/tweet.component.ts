@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Tweet} from '../domain/tweet';
 import {TweetService} from '../services/tweet.service';
 import {AuthenticationService} from '../services/authentication.service';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-tweet',
@@ -11,7 +12,8 @@ import {AuthenticationService} from '../services/authentication.service';
 })
 export class TweetComponent implements OnInit {
 
-  tweets: Tweet[];
+  tweets: Tweet[] = [];
+  loadAmount = 10;
 
   constructor(private tweetService: TweetService, private auth: AuthenticationService) {
   }
@@ -21,6 +23,10 @@ export class TweetComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadTweets();
+  }
+
+  loadTweets(): void {
     if (this.isLoggedIn()) {
       this.getTimeline();
     } else {
@@ -28,14 +34,22 @@ export class TweetComponent implements OnInit {
     }
   }
 
+  onScroll(): void {
+    this.loadTweets();
+  }
+
   getRecentTweets(): void {
-    this.tweetService.getRecentTweets()
-      .subscribe(tweets => this.tweets = tweets);
+    this.tweetService.getRecentTweets(this.tweets.length, this.loadAmount)
+      .subscribe(tweets => {
+        this.tweets = this.tweets.concat(tweets);
+      });
   }
 
   getTimeline(): void {
-    this.tweetService.getTimeline(this.auth.getUsername())
-      .subscribe(tweets => this.tweets = tweets);
+    this.tweetService.getTimeline(this.tweets.length, this.loadAmount)
+      .subscribe(tweets => {
+        this.tweets = this.tweets.concat(tweets);
+      });
   }
 
   add(content: string, publishedBy: string): void {

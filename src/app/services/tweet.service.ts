@@ -23,16 +23,16 @@ export class TweetService {
   }
 
   /** GET recent tweets */
-  getRecentTweets(): Observable<Tweet[]> {
-    const url = `${this.tweetUrl}/recent/0`;
+  getRecentTweets(offset: number, limit: number): Observable<Tweet[]> {
+    const url = `${this.tweetUrl}/recent?offset=${offset}&limit=${limit}`;
     return this.http.get<Tweet[]>(url).pipe(
       tap(_ => this.log('fetched recent tweets')),
       catchError(this.handleError('getRecentTweets', [])));
   }
 
   /** GET a users timeline tweets */
-  getTimeline(username: string): Observable<Tweet[]> {
-    const url = `${this.tweetUrl}/timeline/0/${username}`;
+  getTimeline(offset: number, limit: number): Observable<Tweet[]> {
+    const url = `${this.tweetUrl}/timeline?offset=${offset}&limit=${limit}`;
     console.log(url);
     return this.http.get<Tweet[]>(url).pipe(
       tap(_ => this.log('fetched getTimeline')),

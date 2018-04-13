@@ -1,13 +1,26 @@
-<h2 *ngIf="!isLoggedIn()">Recent Tweets</h2>
-<h2 *ngIf="isLoggedIn()">Your Timeline</h2>
+<h2>Whats on your mind</h2>
 <div class="container">
-  <div class="row justify-content-md-center mt-3">
-    <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
-      <div class="card-body">
-        <p class="card-text">{{tweet.content}}</p>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="inputTweet">Tweet your friends</label>
+        <textarea class="form-control" id="inputTweet" rows="3" maxlength="64"></textarea>
       </div>
-      <div class="card-header">
-        <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <h2 *ngIf="!isLoggedIn()">Recent Tweets</h2>
+  <h2 *ngIf="isLoggedIn()">Your Timeline</h2>
+  <div class="row justify-content-md-center mt-3">
+    <div class="tweet-scroller" infiniteScroll (scrolled)="onScroll()">
+      <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
+        <div class="card-body">
+          <p class="card-text">{{tweet.content}}</p>
+        </div>
+        <div class="card-header">
+          <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a>
+        </div>
       </div>
     </div>
   </div>
