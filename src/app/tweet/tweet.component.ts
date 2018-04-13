@@ -3,6 +3,8 @@ import {Tweet} from '../domain/tweet';
 import {TweetService} from '../services/tweet.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {FormControl, FormGroup} from '@angular/forms';
+import {AccountService} from '../services/account.service';
 
 @Component({
   selector: 'app-tweet',
@@ -12,10 +14,16 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 })
 export class TweetComponent implements OnInit {
 
+  tweetForm = new FormGroup({
+    inputTweet: new FormControl()
+  });
+
   tweets: Tweet[] = [];
   loadAmount = 10;
 
-  constructor(private tweetService: TweetService, private auth: AuthenticationService) {
+  constructor(private tweetService: TweetService,
+              private auth: AuthenticationService,
+              private accountService: AccountService) {
   }
 
   isLoggedIn(): boolean {
@@ -52,12 +60,16 @@ export class TweetComponent implements OnInit {
       });
   }
 
-  add(content: string, publishedBy: string): void {
-    content = content.trim();
-    publishedBy = publishedBy.trim();
+  addTweet(): void {
+    const username = this.auth.getUsername();
+    const content = this.tweetForm.get('inputTweet').value;
 
-    if (!content || !publishedBy) {
-      return;
+    if (content || username) {
+      const t = new Tweet(content, username);
+      this.tweetService.addTweet(t).subscribe(res => {
+        this.tweets.unshift(res);
+      });
     }
+    this.tweetForm.reset();
   }
 }

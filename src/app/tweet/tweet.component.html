@@ -1,27 +1,29 @@
-<h2>Whats on your mind</h2>
-<div class="container">
+<div *ngIf="isLoggedIn()" class="container">
+  <h2>Whats on your mind</h2>
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <div class="form-group">
+      <form class="form-group" [formGroup]="tweetForm" (ngSubmit)="addTweet()">
         <label for="inputTweet">Tweet your friends</label>
-        <textarea class="form-control" id="inputTweet" rows="3" maxlength="64"></textarea>
-      </div>
+        <textarea class="form-control" id="inputTweet" rows="3" maxlength="64" formControlName="inputTweet"></textarea>
+        <button class="btn btn-primary btn-tweet" type="submit">Tweet</button>
+      </form>
     </div>
     <div class="col-md-2"></div>
   </div>
-  <h2 *ngIf="!isLoggedIn()">Recent Tweets</h2>
-  <h2 *ngIf="isLoggedIn()">Your Timeline</h2>
-  <div class="row justify-content-md-center mt-3">
-    <div class="tweet-scroller" infiniteScroll (scrolled)="onScroll()">
-      <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
-        <div class="card-body">
-          <p class="card-text">{{tweet.content}}</p>
-        </div>
-        <div class="card-header">
-          <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a>
+  <div class="container">
+    <h2 *ngIf="!isLoggedIn()">Recent Tweets</h2>
+    <h2 *ngIf="isLoggedIn()">Your Timeline</h2>
+    <div class="row justify-content-md-center mt-3">
+      <div class="tweet-scroller" infiniteScroll (scrolled)="onScroll()">
+        <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
+          <div class="card-body">
+            <p class="card-text">{{tweet.content}}</p>
+          </div>
+          <div class="card-header">
+            <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a><p>{{tweet.published}}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>

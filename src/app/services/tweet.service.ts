@@ -39,6 +39,13 @@ export class TweetService {
       catchError(this.handleError('getTimeline', [])));
   }
 
+  /** POST: add a new register to the server */
+  addTweet(newTweet: Tweet): Observable<Tweet> {
+    return this.http.post(this.tweetUrl, newTweet, httpOptions).pipe(
+      tap((tweet: Tweet) => this.log(`added Tweet`)),
+      catchError(this.handleError<Tweet>('addTweet')));
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

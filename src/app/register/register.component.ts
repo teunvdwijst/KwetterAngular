@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Account} from '../domain/account';
 import {AccountService} from '../services/account.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-register',

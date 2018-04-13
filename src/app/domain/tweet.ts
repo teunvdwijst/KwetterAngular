@@ -1,10 +1,15 @@
 import {Account} from './account';
 
 export class Tweet {
-  id: number;
+  id: string;
   content: string;
   published: string;
-  tweetedBy: Account;
+  tweetedBy: string;
   likedBy: string;
   mentionedBy: string;
+
+  constructor(content: string, tweetedBy: string) {
+    this.content = content;
+    this.tweetedBy = tweetedBy;
+  }
 }
