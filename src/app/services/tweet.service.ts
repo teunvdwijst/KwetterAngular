@@ -25,25 +25,45 @@ export class TweetService {
   /** GET recent tweets */
   getRecentTweets(offset: number, limit: number): Observable<Tweet[]> {
     const url = `${this.tweetUrl}/recent?offset=${offset}&limit=${limit}`;
-    return this.http.get<Tweet[]>(url).pipe(
-      tap(_ => this.log('fetched recent tweets')),
-      catchError(this.handleError('getRecentTweets', [])));
+    return this.http.get<Tweet[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched recent tweets')),
+        catchError(this.handleError('getRecentTweets', [])));
   }
 
   /** GET a users timeline tweets */
   getTimeline(offset: number, limit: number): Observable<Tweet[]> {
     const url = `${this.tweetUrl}/timeline?offset=${offset}&limit=${limit}`;
-    console.log(url);
-    return this.http.get<Tweet[]>(url).pipe(
-      tap(_ => this.log('fetched getTimeline')),
-      catchError(this.handleError('getTimeline', [])));
+    return this.http.get<Tweet[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched getTimeline')),
+        catchError(this.handleError('getTimeline', [])));
   }
 
   /** POST: add a new register to the server */
   addTweet(newTweet: Tweet): Observable<Tweet> {
-    return this.http.post(this.tweetUrl, newTweet, httpOptions).pipe(
-      tap((tweet: Tweet) => this.log(`added Tweet`)),
-      catchError(this.handleError<Tweet>('addTweet')));
+    return this.http.post(this.tweetUrl, newTweet, httpOptions)
+      .pipe(
+        tap((tweet: Tweet) => this.log(`added Tweet`)),
+        catchError(this.handleError<Tweet>('addTweet')));
+  }
+
+  /** POST: add a new register to the server */
+  likeTweet(tweet: Tweet): Observable<Tweet> {
+    const url = `${this.tweetUrl}/like`;
+    return this.http.post(url, tweet, httpOptions)
+      .pipe(
+        tap((res: Tweet) => this.log(`added Tweet like`)),
+        catchError(this.handleError<Tweet>('likeTweet')));
+  }
+
+  /** POST: add a new register to the server */
+  unlikeTweet(tweet: Tweet): Observable<Tweet> {
+    const url = `${this.tweetUrl}/unlike`;
+    return this.http.post(url, tweet, httpOptions)
+      .pipe(
+        tap((res: Tweet) => this.log(`removed Tweet like`)),
+        catchError(this.handleError<Tweet>('unlikeTweet')));
   }
 
   /**

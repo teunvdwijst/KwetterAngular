@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Tweet} from '../domain/tweet';
+import {Account} from '../domain/account';
 import {TweetService} from '../services/tweet.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
@@ -65,11 +66,15 @@ export class TweetComponent implements OnInit {
     const content = this.tweetForm.get('inputTweet').value;
 
     if (content || username) {
-      const t = new Tweet(content, username);
-      this.tweetService.addTweet(t).subscribe(res => {
+      const newTweet = new Tweet(content, new Account(username, null, null));
+      this.tweetService.addTweet(newTweet).subscribe(res => {
         this.tweets.unshift(res);
       });
     }
     this.tweetForm.reset();
+  }
+
+  likeTweet(tweet: Tweet): void {
+    this.tweetService.likeTweet(tweet);
   }
 }

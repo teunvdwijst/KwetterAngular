@@ -11,19 +11,22 @@
     </div>
     <div class="col-md-2"></div>
   </div>
-  <div class="container">
-    <h2 *ngIf="!isLoggedIn()">Recent Tweets</h2>
-    <h2 *ngIf="isLoggedIn()">Your Timeline</h2>
-    <div class="row justify-content-md-center mt-3">
-      <div class="tweet-scroller" infiniteScroll (scrolled)="onScroll()">
-        <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
-          <div class="card-body">
-            <p class="card-text">{{tweet.content}}</p>
-          </div>
-          <div class="card-header">
-            <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a><p>{{tweet.published}}</p>
-          </div>
+</div>
+<div class="container">
+  <h2 *ngIf="!isLoggedIn()">Recent Tweets</h2>
+  <h2 *ngIf="isLoggedIn()">Your Timeline</h2>
+  <div class="row justify-content-md-center mt-3">
+    <div class="tweet-scroller" infiniteScroll (scrolled)="onScroll()">
+      <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
+        <div class="card-body">
+          <p class="card-text">{{tweet.content}}</p>
+        </div>
+        <div class="card-header">
+          <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a>
+          <p>{{tweet.published}}</p>
+          <button class="btn btn-outline-primary" (click)="likeTweet(tweets[tweets.indexOf(tweet)])">Like</button>
         </div>
       </div>
     </div>
   </div>
+</div>
