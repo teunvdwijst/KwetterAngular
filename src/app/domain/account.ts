@@ -2,6 +2,7 @@ export class Account {
   id: number;
   username: string;
   email: string;
+  groups: string;
   password: string;
   location: string;
   bio: string;

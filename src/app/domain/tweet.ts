@@ -4,10 +4,12 @@ export class Tweet {
   id: number;
   content: string;
   published: string;
-  tweetedBy: Account;
-  likedBy: string;
+  tweetedBy: string;
+  tags: string[];
+  likedBy: string[];
+  mentions: string[];
 
-  constructor(content: string, tweetedBy: Account) {
+  constructor(content: string, tweetedBy: string) {
     this.content = content;
     this.tweetedBy = tweetedBy;
   }

@@ -23,25 +23,25 @@ export class TweetService {
   }
 
   /** GET recent tweets */
-  getRecentTweets(offset: number, limit: number): Observable<Tweet[]> {
+  getRecentTweets(offset: number, limit: number): Observable<any[]> {
     const url = `${this.tweetUrl}/recent?offset=${offset}&limit=${limit}`;
-    return this.http.get<Tweet[]>(url)
+    return this.http.get<any[]>(url)
       .pipe(
         tap(_ => this.log('fetched recent tweets')),
         catchError(this.handleError('getRecentTweets', [])));
   }
 
   /** GET a users timeline tweets */
-  getTimeline(offset: number, limit: number): Observable<Tweet[]> {
+  getTimeline(offset: number, limit: number): Observable<any[]> {
     const url = `${this.tweetUrl}/timeline?offset=${offset}&limit=${limit}`;
-    return this.http.get<Tweet[]>(url)
+    return this.http.get<any[]>(url)
       .pipe(
         tap(_ => this.log('fetched getTimeline')),
         catchError(this.handleError('getTimeline', [])));
   }
 
   /** POST: add a new register to the server */
-  addTweet(newTweet: Tweet): Observable<Tweet> {
+  addTweet(newTweet: Tweet): Observable<any> {
     return this.http.post(this.tweetUrl, newTweet, httpOptions)
       .pipe(
         tap((tweet: Tweet) => this.log(`added Tweet`)),
@@ -49,7 +49,7 @@ export class TweetService {
   }
 
   /** POST: add a new register to the server */
-  likeTweet(tweet: Tweet): Observable<Tweet> {
+  likeTweet(tweet: Tweet): Observable<any> {
     const url = `${this.tweetUrl}/like`;
     return this.http.post(url, tweet, httpOptions)
       .pipe(
@@ -58,7 +58,7 @@ export class TweetService {
   }
 
   /** POST: add a new register to the server */
-  unlikeTweet(tweet: Tweet): Observable<Tweet> {
+  unlikeTweet(tweet: Tweet): Observable<any> {
     const url = `${this.tweetUrl}/unlike`;
     return this.http.post(url, tweet, httpOptions)
       .pipe(
