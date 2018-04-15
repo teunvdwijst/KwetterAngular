@@ -77,4 +77,8 @@ export class TweetComponent implements OnInit {
   likeTweet(tweet: Tweet): void {
     this.tweetService.likeTweet(tweet);
   }
+
+  getTweetLikes() {
+    return 1;
+  }
 }

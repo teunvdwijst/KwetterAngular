@@ -6,7 +6,6 @@ export class Tweet {
   published: string;
   tweetedBy: Account;
   likedBy: string;
-  mentionedBy: string;
 
   constructor(content: string, tweetedBy: Account) {
     this.content = content;
