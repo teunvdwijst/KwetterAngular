@@ -46,6 +46,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.accountService.addAccount(new Account(username, email, password));
+    this.accountService.addAccount(new Account(null, username, email, null, password, null, null, null, null));
   }
 }

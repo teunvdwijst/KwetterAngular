@@ -3,8 +3,7 @@ import {Tweet} from '../domain/tweet';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, tap} from 'rxjs/operators';
-import {Account} from '../domain/account';
+import 'rxjs/add/operator/map';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -23,66 +22,32 @@ export class TweetService {
   }
 
   /** GET recent tweets */
-  getRecentTweets(offset: number, limit: number): Observable<any[]> {
+  getRecentTweets(offset: number, limit: number): Observable<Tweet[]> {
     const url = `${this.tweetUrl}/recent?offset=${offset}&limit=${limit}`;
-    return this.http.get<any[]>(url)
-      .pipe(
-        tap(_ => this.log('fetched recent tweets')),
-        catchError(this.handleError('getRecentTweets', [])));
+    return this.http.get(url).map(res => res as Tweet[]);
   }
 
   /** GET a users timeline tweets */
-  getTimeline(offset: number, limit: number): Observable<any[]> {
+  getTimeline(offset: number, limit: number): Observable<Tweet[]> {
     const url = `${this.tweetUrl}/timeline?offset=${offset}&limit=${limit}`;
-    return this.http.get<any[]>(url)
-      .pipe(
-        tap(_ => this.log('fetched getTimeline')),
-        catchError(this.handleError('getTimeline', [])));
+    return this.http.get(url).map(res => res as Tweet[]);
   }
 
   /** POST: add a new register to the server */
-  addTweet(newTweet: Tweet): Observable<any> {
-    return this.http.post(this.tweetUrl, newTweet, httpOptions)
-      .pipe(
-        tap((tweet: Tweet) => this.log(`added Tweet`)),
-        catchError(this.handleError<Tweet>('addTweet')));
+  addTweet(newTweet: Tweet): Observable<Tweet> {
+    console.log('CONTENT -> ' + newTweet.content);
+    return this.http.post<Tweet>(this.tweetUrl, newTweet, httpOptions);
   }
 
   /** POST: add a new register to the server */
   likeTweet(tweet: Tweet): Observable<any> {
     const url = `${this.tweetUrl}/like`;
-    return this.http.post(url, tweet, httpOptions)
-      .pipe(
-        tap((res: Tweet) => this.log(`added Tweet like`)),
-        catchError(this.handleError<Tweet>('likeTweet')));
+    return this.http.post(url, tweet, httpOptions);
   }
 
   /** POST: add a new register to the server */
   unlikeTweet(tweet: Tweet): Observable<any> {
     const url = `${this.tweetUrl}/unlike`;
-    return this.http.post(url, tweet, httpOptions)
-      .pipe(
-        tap((res: Tweet) => this.log(`removed Tweet like`)),
-        catchError(this.handleError<Tweet>('unlikeTweet')));
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+    return this.http.post(url, tweet, httpOptions);
   }
 }

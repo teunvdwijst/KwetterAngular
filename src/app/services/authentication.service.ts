@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Account} from '../domain/account';
 import {JwtHelper, tokenNotExpired} from 'angular2-jwt';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticationService {
@@ -36,7 +37,7 @@ export class AuthenticationService {
   }
 
   public login(username: string, password: string): Observable<any> {
-    const account = new Account(username, null, password);
+    const account = new Account(null, username, null, null, password, null, null, null, null);
     return this.http.post(this.loginUrl, account, {headers: this.httpOptions.headers, observe: 'response'});
   }
 }
