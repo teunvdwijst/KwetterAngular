@@ -62,8 +62,9 @@ export class TweetComponent implements OnInit {
   }
 
   addTweet(): void {
-    if (this.tweetForm.get('inputTweet').value > 0) {
-      const newTweet = new Tweet(null, this.tweetForm.get('inputTweet').value, null, this.auth.getUsername(), null, null, null);
+    const input = <string>this.tweetForm.get('inputTweet').value;
+    if (input.length > 0) {
+      const newTweet = new Tweet(null, input, null, this.auth.getUsername(), null, null, null);
       this.tweetService.addTweet(newTweet).subscribe(res => {
         this.tweets.unshift(res);
       });
