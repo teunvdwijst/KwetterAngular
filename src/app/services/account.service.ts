@@ -27,6 +27,12 @@ export class AccountService {
     return this.http.get(url).map(res => res as Account[]);
   }
 
+  /** GET all accounts */
+  searchAccounts(searchterm: string): Observable<Account[]> {
+    const url = `${this.accountUrl}/search?searchterm=${searchterm}`;
+    return this.http.get(url).map(res => res as Account[]);
+  }
+
   /** GET register by username. Will 404 if username not found */
   getAccount(username: string): Observable<Account> {
     const url = `${this.accountUrl}/username/${username}`;

@@ -13,6 +13,7 @@ import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './services/authentication.service';
 import {TokenInterceptor} from './token.interceptor';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     AccountDetailComponent,
     TweetComponent,
     LoginComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

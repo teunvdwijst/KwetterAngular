@@ -1,0 +1,17 @@
+.row {
+  margin-bottom: 15px;
+}
+
+.card {
+  margin: 10px;
+}
+
+.card-text {
+  color: #000000;
+}
+
+.col-md-auto {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0px;
+}

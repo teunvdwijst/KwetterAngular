@@ -4,9 +4,11 @@ import {RegisterComponent} from './register/register.component';
 import {AccountDetailComponent} from './account-detail/account-detail.component';
 import {TweetComponent} from './tweet/tweet.component';
 import {LoginComponent} from './login/login.component';
+import {SearchComponent} from './search/search.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/tweets', pathMatch: 'full'},
+  {path: 'search', component: SearchComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'tweets', component: TweetComponent},
   {path: 'accounts/:username', component: AccountDetailComponent},
