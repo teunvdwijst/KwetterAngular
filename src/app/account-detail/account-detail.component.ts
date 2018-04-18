@@ -81,9 +81,15 @@ export class AccountDetailComponent implements OnInit {
 
   addFollowing(account: Account): void {
     this.accountService.addAccountFollowing(account).subscribe();
+    this.accountService.getAccount(this.auth.getUsername()).subscribe(res => {
+      this.followers.unshift(res);
+    });
   }
 
   removeFollowing(account: Account): void {
     this.accountService.removeAccountFollowing(account).subscribe();
+    this.accountService.getAccount(this.auth.getUsername()).subscribe(res => {
+      this.followers = this.followers.filter(temp => this.auth.getUsername() !== temp.username);
+    });
   }
 }
