@@ -22,10 +22,14 @@
           <p class="card-text">{{tweet.content}}</p>
         </div>
         <div class="card-header">
-          <a routerLink="/accounts/{{tweet.tweetedBy.username}}" class="card-link">{{tweet.tweetedBy.username}}</a>
+          <a routerLink="/accounts/{{tweet.tweetedBy}}" class="card-link">{{tweet.tweetedBy}}</a>
           <p>{{tweet.published}}</p>
-          <p>{{tweet.likedBy.length}}</p>
-          <button class="btn btn-outline-primary" (click)="likeTweet(tweets[tweets.indexOf(tweet)])">Like</button>
+          <div id="parent">
+            <div id="narrow"><p>{{tweet.likedBy.length}}</p></div>
+            <div id="wide">
+              <button class="btn btn-outline-primary" (click)="likeTweet(tweets[tweets.indexOf(tweet)])">Like</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

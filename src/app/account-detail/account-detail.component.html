@@ -35,7 +35,8 @@
           <p *ngIf="!editLocation" class="form-control-static">{{account.location}}</p>
         </div>
         <div class="col-sm-1">
-          <button *ngIf="accountOwner()" type="button" (click)="changeLocationField()" class="btn btn-primary">Edit</button>
+          <button *ngIf="accountOwner()" type="button" (click)="changeLocationField()" class="btn btn-primary">Edit
+          </button>
         </div>
       </div>
     </div>
@@ -48,16 +49,27 @@
           <p *ngIf="!editWebsite" class="form-control-static">{{account.website}}</p>
         </div>
         <div class="col-sm-1">
-          <button *ngIf="accountOwner()" type="button" (click)="changeWebsiteField()" class="btn btn-primary">Edit</button>
+          <button *ngIf="accountOwner()" type="button" (click)="changeWebsiteField()" class="btn btn-primary">Edit
+          </button>
         </div>
       </div>
     </div>
   </div>
   <br/>
-  <button *ngIf="accountOwner()" type="button" class="btn btn-primary" (click)="save()">save</button>
+  <button *ngIf="accountOwner()" type="button" class="btn btn-primary" (click)="save()">Save</button>
+  <div *ngIf="!accountOwner()">
+    <div *ngIf="following">
+      <br/>
+      <button *ngIf="!accountFollowing()" type="button" class="btn btn-primary" (click)="addFollowing(account)">
+        Follow
+      </button>
+      <button *ngIf="accountFollowing()" type="button" class="btn btn-primary" (click)="removeFollowing(account)">
+        Unfollow
+      </button>
+    </div>
+  </div>
 </div>
 
-<br/>
 <br/>
 <div class="container">
   <div class="row">

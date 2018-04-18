@@ -54,4 +54,16 @@ export class AccountService {
   addAccount(newAccount: Account): Observable<Account> {
     return this.http.post(this.accountUrl, newAccount, httpOptions).map(res => res as Account);
   }
+
+  /** POST: add a new register to the server */
+  addAccountFollowing(account: Account): Observable<any> {
+    const url = `${this.accountUrl}/follow`;
+    return this.http.put(url, account, httpOptions).map(res => res);
+  }
+
+  /** POST: add a new register to the server */
+  removeAccountFollowing(account: Account): Observable<any> {
+    const url = `${this.accountUrl}/unfollow`;
+    return this.http.put(url, account, httpOptions).map(res => res);
+  }
 }

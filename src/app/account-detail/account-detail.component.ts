@@ -3,6 +3,7 @@ import {Account} from '../domain/account';
 import {ActivatedRoute} from '@angular/router';
 import {AccountService} from '../services/account.service';
 import {AuthenticationService} from '../services/authentication.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-account-detail',
@@ -26,10 +27,10 @@ export class AccountDetailComponent implements OnInit {
 
   ngOnInit(): void {
     let username;
-      this.route.params.subscribe(params => {
-        username = params['username'];
-      });
-      if (username == null || username === '') {
+    this.route.params.subscribe(params => {
+      username = params['username'];
+    });
+    if (username == null || username === '') {
       this.getAccount(this.auth.getUsername());
       return;
     }
@@ -38,6 +39,16 @@ export class AccountDetailComponent implements OnInit {
 
   accountOwner(): boolean {
     return this.account.username === this.auth.getUsername();
+  }
+
+  accountFollowing(): boolean {
+    let result = false;
+    this.followers.forEach((obj) => {
+      if (obj.username === this.auth.getUsername()) {
+        result = true;
+      }
+    });
+    return result;
   }
 
   changeLocationField(): void {
@@ -65,7 +76,14 @@ export class AccountDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.accountService.updateAccount(this.account)
-      .subscribe();
+    this.accountService.updateAccount(this.account).subscribe();
+  }
+
+  addFollowing(account: Account): void {
+    this.accountService.addAccountFollowing(account).subscribe();
+  }
+
+  removeFollowing(account: Account): void {
+    this.accountService.removeAccountFollowing(account).subscribe();
   }
 }

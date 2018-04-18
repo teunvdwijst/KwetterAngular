@@ -17,3 +17,13 @@
 .p {
   margin-left: 15px;
 }
+
+#parent {
+  display: flex;
+}
+#narrow {
+  width: 50px;
+}
+#wide {
+  flex: 1;
+}
