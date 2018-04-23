@@ -25,9 +25,9 @@
           <a routerLink="/accounts/{{tweet.tweetedBy}}" class="card-link">{{tweet.tweetedBy}}</a>
           <p>{{tweet.published}}</p>
           <div id="parent">
-            <div id="narrow"><p>{{tweet.likedBy.length}}</p></div>
+            <div id="narrow"><p>Likes: {{tweet.likedBy.length}}</p></div>
             <div id="wide">
-              <button class="btn btn-outline-primary" (click)="likeTweet(tweets[tweets.indexOf(tweet)])">Like</button>
+              <button *ngIf="isLoggedIn()" class="btn btn-outline-primary" (click)="likeTweet(tweets[tweets.indexOf(tweet)])">Like</button>
             </div>
           </div>
         </div>

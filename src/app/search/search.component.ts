@@ -1,5 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {AccountService} from '../services/account.service';
+import {Account} from '../domain/account';
 
 @Component({
   selector: 'app-search',
@@ -19,7 +20,7 @@ export class SearchComponent implements OnInit {
 
   searchStringChanged(searchTerm: string): void {
     this.accountService.searchAccounts(searchTerm).subscribe(res => {
-      this.searchResults = res as Account[];
+      this.searchResults = res;
     });
   }
 }

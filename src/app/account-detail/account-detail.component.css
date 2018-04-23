@@ -2,10 +2,6 @@
   margin-bottom: 15px;
 }
 
-p {
-  float: left;
-}
-
 .card {
   margin: 10px;
 }
@@ -16,4 +12,16 @@ p {
 
 .col-md-auto {
   padding: 0px;
+}
+
+#parent {
+  display: flex;
+}
+
+#narrow {
+  width: 150px;
+}
+
+#wide {
+  flex: 1;
 }

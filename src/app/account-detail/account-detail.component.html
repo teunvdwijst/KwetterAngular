@@ -101,5 +101,25 @@
     </div>
   </div>
 </div>
-
+<div class="container">
+  <div class="row justify-content-md-center mt-3">
+    <div *ngFor="let tweet of tweets" class="col col-md-auto control-label card" style="width: 24rem;">
+      <div class="card-body">
+        <p class="card-text">{{tweet.content}}</p>
+      </div>
+      <div class="card-header">
+        <a routerLink="/accounts/{{tweet.tweetedBy}}" class="card-link">{{tweet.tweetedBy}}</a>
+        <p>{{tweet.published}}</p>
+        <div id="parent">
+          <div id="narrow"><p>Likes: {{tweet.likedBy.length}}</p></div>
+          <div id="wide">
+            <button *ngIf="isLoggedIn()" class="btn btn-outline-primary"
+                    (click)="likeTweet(tweets[tweets.indexOf(tweet)])">Like
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 

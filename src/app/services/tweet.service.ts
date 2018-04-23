@@ -27,6 +27,12 @@ export class TweetService {
     return this.http.get(url).map(res => res as Tweet[]);
   }
 
+  /** GET recent tweets */
+  getTweetsByUser(username: string): Observable<Tweet[]> {
+    const url = `${this.tweetUrl}/username/${username}`;
+    return this.http.get(url).map(res => res as Tweet[]);
+  }
+
   /** GET a users timeline tweets */
   getTimeline(offset: number, limit: number): Observable<Tweet[]> {
     const url = `${this.tweetUrl}/timeline?offset=${offset}&limit=${limit}`;

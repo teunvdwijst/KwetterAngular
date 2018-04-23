@@ -22,7 +22,7 @@
   display: flex;
 }
 #narrow {
-  width: 50px;
+  width: 150px;
 }
 #wide {
   flex: 1;

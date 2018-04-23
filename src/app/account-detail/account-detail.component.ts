@@ -4,6 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 import {AccountService} from '../services/account.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {forEach} from '@angular/router/src/utils/collection';
+import {Tweet} from '../domain/tweet';
+import {TweetService} from '../services/tweet.service';
 
 @Component({
   selector: 'app-account-detail',
@@ -15,6 +17,7 @@ export class AccountDetailComponent implements OnInit {
   account: Account;
   followers: Account[];
   following: Account[];
+  tweets: Tweet[];
 
   editBio = false;
   editLocation = false;
@@ -22,7 +25,8 @@ export class AccountDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private accountService: AccountService,
-              private auth: AuthenticationService) {
+              private auth: AuthenticationService,
+              private tweetService: TweetService) {
   }
 
   ngOnInit(): void {
@@ -39,6 +43,10 @@ export class AccountDetailComponent implements OnInit {
 
   accountOwner(): boolean {
     return this.account.username === this.auth.getUsername();
+  }
+
+  isLoggedIn(): boolean {
+    return this.auth.isAuthenticated();
   }
 
   accountFollowing(): boolean {
@@ -72,6 +80,9 @@ export class AccountDetailComponent implements OnInit {
     });
     this.accountService.getAccountFollowing(username).subscribe(following => {
       this.following = following;
+    });
+    this.tweetService.getTweetsByUser(username).subscribe(tweets => {
+      this.tweets = tweets;
     });
   }
 
