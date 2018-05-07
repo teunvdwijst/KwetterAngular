@@ -45,6 +45,10 @@ export class TweetService {
     return this.http.post<Tweet>(this.tweetUrl, newTweet, httpOptions);
   }
 
+  getTweetLikedBy(tweet: Tweet): Observable<any> {
+    return this.http.get(tweet.likedByUri).map(res => res as Account[]);
+  }
+
   /** POST: add a new register to the server */
   likeTweet(tweet: Tweet): Observable<any> {
     const url = `${this.tweetUrl}/like`;

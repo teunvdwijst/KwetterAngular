@@ -65,7 +65,7 @@ export class TweetComponent implements OnInit {
     try {
       const input = <string>this.tweetForm.get('inputTweet').value;
       if (input.trim().length > 0) {
-        const newTweet = new Tweet(null, input.trim(), null, this.auth.getUsername(), null, null, null);
+        const newTweet = new Tweet(null, input.trim(), null, this.auth.getUsername(), false, null, null, null, null, null);
         this.tweetService.addTweet(newTweet).subscribe(res => {
           this.tweets.unshift(res);
         });
@@ -77,7 +77,7 @@ export class TweetComponent implements OnInit {
   }
 
   likeTweet(tweet: Tweet): void {
-    if (tweet.likedBy.indexOf(this.auth.getUsername()) === -1) {
+    if (!tweet.hasBeenLiked) {
       this.tweetService.likeTweet(tweet).subscribe(res => {
         this.tweets[this.tweets.indexOf(tweet)] = res;
       });

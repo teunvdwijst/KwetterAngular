@@ -3,17 +3,24 @@ export class Tweet {
   content: string;
   published: string;
   tweetedBy: string;
-  tags: string[];
-  likedBy: string[];
-  mentions: string[];
+  tweetedByUri: string;
+  tagsUri: string;
+  hasBeenLiked: boolean;
+  likedByUri: string;
+  likedBySize: string;
+  mentionsUri: string;
 
-  constructor(id: number, content: string, published: string, tweetedBy: string, tags: string[], likedBy: string[], mentions: string[]) {
+  constructor(id: number, content: string, published: string, tweetedBy: string, hasBeenLiked: boolean,
+              tweetedByUri: string, tags: string, likedBy: string, likedBySize: string, mentions: string) {
     this.id = id;
     this.content = content;
     this.published = published;
     this.tweetedBy = tweetedBy;
-    this.tags = tags;
-    this.likedBy = likedBy;
-    this.mentions = mentions;
+    this.tweetedByUri = tweetedBy;
+    this.hasBeenLiked = hasBeenLiked,
+      this.tagsUri = tags;
+    this.likedByUri = likedBy;
+    this.likedBySize = likedBySize;
+    this.mentionsUri = mentions;
   }
 }

@@ -37,7 +37,7 @@ export class AuthenticationService {
   }
 
   public login(username: string, password: string): Observable<any> {
-    const account = new Account(null, username, null, null, password, null, null, null, null);
+    const account = new Account(null, username, null, null, password, null, null, null, null, null, null, null);
     return this.http.post(this.loginUrl, account, {headers: this.httpOptions.headers, observe: 'response'});
   }
 }
