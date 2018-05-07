@@ -2,6 +2,10 @@
   margin-bottom: 15px;
 }
 
+.account-details p {
+  float: left;
+}
+
 .card {
   margin: 10px;
 }
