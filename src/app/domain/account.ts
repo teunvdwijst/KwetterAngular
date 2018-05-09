@@ -8,13 +8,13 @@ export class Account {
   bio: string;
   website: string;
   avatarPath: string;
-  tweets: string;
-  following: string;
-  followers: string;
+  tweetsUri: string;
+  followingUri: string;
+  followersUri: string;
 
   constructor(id: number, username: string, email: string, groups: string, password: string,
               location: string, bio: string, website: string, avatarPath: string,
-              tweets: string, following: string, followers: string) {
+              tweetsUri: string, followingUri: string, followersUri: string) {
     this.id = id;
     this.username = username;
     this.email = email;
@@ -24,8 +24,8 @@ export class Account {
     this.bio = bio;
     this.website = website;
     this.avatarPath = avatarPath;
-    this.tweets = tweets;
-    this.followers = followers;
-    this.following = following;
+    this.tweetsUri = tweetsUri;
+    this.followersUri = followersUri;
+    this.followingUri = followingUri;
   }
 }

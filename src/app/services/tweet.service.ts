@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Tweet} from '../domain/tweet';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subject} from 'rxjs/Rx';
 import {of} from 'rxjs/observable/of';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import {WebsocketService} from '../services/websocket.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -13,8 +14,16 @@ const httpOptions = {
 export class TweetService {
 
   private tweetUrl = 'http://localhost:8080/KwetterS62/api/tweets';
+  public messages: Subject<Tweet>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private socketService: WebsocketService) {
+    this.messages = <Subject<Tweet>>this.socketService
+      .connect('ws://localhost:8080/KwetterS62/serverwsendpoint')
+      .map((res: MessageEvent): Tweet => {
+        const data = JSON.parse(res.data);
+        return data as Tweet;
+      });
   }
 
   private log(message: string) {
@@ -41,7 +50,6 @@ export class TweetService {
 
   /** POST: add a new register to the server */
   addTweet(newTweet: Tweet): Observable<Tweet> {
-    console.log('CONTENT -> ' + newTweet.content);
     return this.http.post<Tweet>(this.tweetUrl, newTweet, httpOptions);
   }
 
