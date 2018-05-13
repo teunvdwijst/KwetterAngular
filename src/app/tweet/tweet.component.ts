@@ -24,7 +24,7 @@ export class TweetComponent implements OnInit {
               private auth: AuthenticationService,
               private accountService: AccountService) {
     this.tweetService.messages.subscribe(msg => {
-      this.tweets.push(msg as Tweet);
+      this.tweets.unshift(msg as Tweet);
     });
   }
 
@@ -68,7 +68,7 @@ export class TweetComponent implements OnInit {
       if (input.trim().length > 0) {
         const newTweet = new Tweet(null, input.trim(), null, this.auth.getUsername(), false, null, null, null, null, null);
         this.tweetService.addTweet(newTweet).subscribe(res => {
-          this.tweets.unshift(res);
+          // this.tweets.unshift(res);
         });
         this.tweetForm.reset();
       }
