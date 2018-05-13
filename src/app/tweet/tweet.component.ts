@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Tweet} from '../domain/tweet';
-import {Account} from '../domain/account';
 import {TweetService} from '../services/tweet.service';
 import {AuthenticationService} from '../services/authentication.service';
-import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AccountService} from '../services/account.service';
 
@@ -25,14 +23,17 @@ export class TweetComponent implements OnInit {
   constructor(private tweetService: TweetService,
               private auth: AuthenticationService,
               private accountService: AccountService) {
-  }
-
-  isLoggedIn(): boolean {
-    return this.auth.isAuthenticated();
+    this.tweetService.messages.subscribe(msg => {
+      this.tweets.unshift(msg as Tweet);
+    });
   }
 
   ngOnInit() {
     this.loadTweets();
+  }
+
+  isLoggedIn(): boolean {
+    return this.auth.isAuthenticated();
   }
 
   loadTweets(): void {
@@ -67,7 +68,7 @@ export class TweetComponent implements OnInit {
       if (input.trim().length > 0) {
         const newTweet = new Tweet(null, input.trim(), null, this.auth.getUsername(), false, null, null, null, null, null);
         this.tweetService.addTweet(newTweet).subscribe(res => {
-          this.tweets.unshift(res);
+          // this.tweets.unshift(res);
         });
         this.tweetForm.reset();
       }
